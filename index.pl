@@ -1,0 +1,1 @@
+:- use_module('day1/day1.pl').
