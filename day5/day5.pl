@@ -4,6 +4,7 @@
 
 :- use_module(library(pure_input)).
 :- use_module(library(dcg/basics)).
+:- use_module(library(readutil)).
 
 rows(128).
 columns(8).
@@ -19,14 +20,15 @@ input([[[X1, X2, X3, X4, X5, X6, X7], [X8, X9, X10]]|Data]) -->
     [X8],
     [X9],
     [X10],
-    `\n`,
+    "\n",
     input(Data).
 
 input([]) --> eos.
 
 load_data(Passes) :-
-    open('day5/input.dat', read, Stream),
-    phrase_from_stream(input(Passes), Stream).
+    read_file_to_string('day5/input.dat', String, []),
+    string_chars(String, Chars),
+    phrase(input(Passes), Chars).
 
 star(1, X) :-
     load_data(Passes),
@@ -55,24 +57,20 @@ seat([PassRow, PassColumn], seat(Row, Column)) :-
 
 seat_calc([], [], 0, 0, _, _).
 
-seat_calc([], [Code|PassColumn], 0, Column, _, M) :-
-    Code is `L`,
+seat_calc([], ['L'|PassColumn], 0, Column, _, M) :-
     Middle is M / 2,
     seat_calc([], PassColumn, 0, Column, _, Middle).
 
-seat_calc([], [Code|PassColumn], 0, Column, _, M) :-
-    Code is `R`,
+seat_calc([], ['R'|PassColumn], 0, Column, _, M) :-
     Middle is M / 2,
     seat_calc([], PassColumn, 0, Column1, _, Middle),
     Column is Middle + Column1.
 
-seat_calc([Code|PassRow], PassColumn, Row, Column, N, M) :-
-    Code is `F`,
+seat_calc(['F'|PassRow], PassColumn, Row, Column, N, M) :-
     Middle is N / 2,
     seat_calc(PassRow, PassColumn, Row, Column, Middle, M).
 
-seat_calc([Code|PassRow], PassColumn, Row, Column, N, M) :-
-    Code is `B`,
+seat_calc(['B'|PassRow], PassColumn, Row, Column, N, M) :-
     Middle is N / 2,
     seat_calc(PassRow, PassColumn, Row1, Column, Middle, M),
     Row is Row1 + Middle.
