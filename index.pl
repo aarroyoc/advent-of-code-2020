@@ -3,3 +3,4 @@
 :- use_module('day3/day3.pl').
 :- use_module('day4/day4.pl').
 :- use_module('day5/day5.pl').
+:- use_module('day6/day6.pl').
