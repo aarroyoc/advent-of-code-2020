@@ -11,54 +11,35 @@ input([]) --> eos.
 
 input([step(acc, Arg)|Steps]) -->
     "acc",
-    " +",
-    integer(Arg),
+    " ",
+    input_number(Arg),
     "\n",
     input(Steps).
 
 input([step(jmp, Arg)|Steps]) -->
     "jmp",
-    " +",
-    integer(Arg),
+    " ",
+    input_number(Arg),
     "\n",
     input(Steps).
 
 input([step(nop, Arg)|Steps]) -->
     "nop",
-    " +",
-    integer(Arg),
+    " ",
+    input_number(Arg),
     "\n",
     input(Steps).
 
-input([step(acc, Arg)|Steps]) -->
-    "acc",
-    " -",
-    integer(Arg0),
+input_number(N) -->
+    "-",
+    integer(N0),
     {
-        Arg is Arg0 * -1
-    },
-    "\n",
-    input(Steps).
+        N is N0 * -1
+    }.
 
-input([step(jmp, Arg)|Steps]) -->
-    "jmp",
-    " -",
-    integer(Arg0),
-    {
-        Arg is Arg0 * -1
-    },
-    "\n",
-    input(Steps).
-
-input([step(nop, Arg)|Steps]) -->
-    "nop",
-    " -",
-    integer(Arg0),
-    {
-        Arg is Arg0 * -1
-    },
-    "\n",
-    input(Steps).
+input_number(N) -->
+    "+",
+    integer(N).
 
 load_data(Steps) :-
     read_file_to_string('day8/input.dat', String, []),

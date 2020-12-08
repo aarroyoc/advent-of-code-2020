@@ -42,7 +42,7 @@ count(_, [], 0) :- !.
 count(A, [A|Chars], N) :-
     !,count(A, Chars, N1),
     N is N1 + 1.
-count(A, [Char|Chars], N) :-
+count(A, [_Char|Chars], N) :-
     count(A, Chars, N).
 
 policy(password(Password, Letter, Min, Max)) :-
