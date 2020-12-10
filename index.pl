@@ -7,3 +7,4 @@
 :- use_module('day7/day7.pl').
 :- use_module('day8/day8.pl').
 :- use_module('day9/day9.pl').
+:- use_module('day10/day10.pl').

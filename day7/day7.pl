@@ -2,6 +2,7 @@
 
 :- set_prolog_flag(double_quotes, chars).
 
+:- use_module(library(tabling)).
 :- use_module(library(pure_input)).
 :- use_module(library(dcg/basics)).
 :- use_module(library(readutil)).
