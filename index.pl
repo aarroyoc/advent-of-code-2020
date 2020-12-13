@@ -9,3 +9,4 @@
 :- use_module('day9/day9.pl').
 :- use_module('day10/day10.pl').
 :- use_module('day12/day12.pl').
+:- use_module('day13/day13.pl').
