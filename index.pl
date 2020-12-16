@@ -10,5 +10,6 @@
 :- use_module('day10/day10.pl').
 :- use_module('day12/day12.pl').
 :- use_module('day13/day13.pl').
-:- use_module('day14/day14.pl').
-:- use_module('day15/day15.pl').
+% :- use_module('day14/day14.pl').
+% :- use_module('day15/day15.pl').
+:- use_module('day16/day16.pl').

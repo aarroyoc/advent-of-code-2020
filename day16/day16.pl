@@ -1,3 +1,5 @@
+:- module(day16, []).
+
 :- set_prolog_flag(double_quotes, chars).
 
 :- use_module(library(pure_input)).
@@ -62,13 +64,6 @@ star(2, N) :-
     load_data(Fields, MyTicket, Tickets),
     include(all_fields_valid(Fields), Tickets, ValidTickets),
     length(MyTicket, Length),
-    maplist(field_position(Length, ValidTickets, Fields), Fields),
-    foldl(product_departure(MyTicket), Fields, 1, N).
-
-star(3, N) :-
-    load_data(Fields, MyTicket, Tickets),
-    include(all_fields_valid(Fields), Tickets, ValidTickets),
-    length(MyTicket, Length),
     maplist(get_all_positions(Length, ValidTickets), Fields, FieldsPositions),
     select_field(Fields, FieldsPositions),
     foldl(product_departure(MyTicket), Fields, 1, N).
@@ -94,26 +89,12 @@ all_fields_valid(Fields, Ticket) :-
 
 get_all_positions(Length, Tickets, Field, Positions) :-
     findall(Position,(
-        field_position_(Length, Tickets, Field),
+        field_position(Length, Tickets, Field),
         Field = field(_, _, Position)
     ), Positions).
 
-field_position_(Length, Tickets, field(Name, [range(X1, X2), range(Y1, Y2)], Position)) :-
+field_position(Length, Tickets, field(Name, [range(X1, X2), range(Y1, Y2)], Position)) :-
     between(1, Length, Position),
-    forall(member(Ticket, Tickets),(
-        nth1(Position, Ticket, N),
-        (between(X1, X2, N);between(Y1, Y2, N))
-    )).
-
-field_position(Length, Tickets, Fields, field(Name, [range(X1, X2), range(Y1, Y2)], Position)) :-
-    between(1, Length, Position),
-    forall((
-        member(Field, Fields),
-        Field = field(Name0, _, X),
-        dif(Name, Name0)
-    ),(
-        dif(X, Position)
-    )),
     forall(member(Ticket, Tickets),(
         nth1(Position, Ticket, N),
         (between(X1, X2, N);between(Y1, Y2, N))
@@ -134,3 +115,10 @@ ticket_field(Field, Fields) :-
     member(field(_, Ranges, _), Fields),
     member(range(X1, X2), Ranges),
     between(X1, X2, Field).
+
+:- begin_tests(day16).
+
+test(star1) :- star(1, 20231), !.
+test(star2) :- star(2, 1940065747861),!.
+
+:- end_tests(day16).
