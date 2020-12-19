@@ -95,8 +95,8 @@ eval(In, Out) -->
 
 eval(X, X) --> [].
 
-:- table expr/3.
-:- table sum_expr/3.
+:- table expr//1.
+:- table sum_expr//1.
 
 expr(X) -->
     "(",
