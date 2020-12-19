@@ -11,11 +11,12 @@ lines([L|Ls]) --> line(L), lines(Ls).
 
 line([])     --> ( "\n" | call(eos) ), !.
 line([X|Cs]) --> integer(X),!,line(Cs).
-line(['*'|Cs]) --> "*",!,line(Cs).
-line(['+'|Cs]) --> "+",!,line(Cs).
-line(['('|Cs]) --> "(",!,line(Cs).
-line([')'|Cs]) --> ")",!,line(Cs).
-line(Cs) --> [C], { C = ' '}, line(Cs).
+line(Cs) --> [C], line_(C, Cs).
+line_(*, [*|Cs])     --> line(Cs).
+line_(+, [+|Cs])     --> line(Cs).
+line_('(', ['('|Cs]) --> line(Cs).
+line_(')', [')'|Cs]) --> line(Cs).
+line_(' ', Cs)       --> line(Cs).
 
 eos([], []).
 
