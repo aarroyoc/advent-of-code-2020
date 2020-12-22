@@ -16,3 +16,4 @@
 :- use_module('day18/day18.pl').
 :- use_module('day19/day19.pl').
 :- use_module('day20/day20.pl').
+:- use_module('day22/day22.pl').
