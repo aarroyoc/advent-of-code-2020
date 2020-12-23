@@ -66,14 +66,13 @@ star(1, N) :-
 pair_term(Ingredient-Allergen, danger(Ingredient, Allergen)).
 
 allergens(Set, []) :-
-    forall(member(_-List, Set), length(List, 0)).
+    pairs_keys_values(Set, _, Lists), maplist(=([]), Lists).
 allergens(Set, Allergens) :-
     member(Allergen-List, Set),
-    length(List, 1),
     [Ingredient] = List,
     maplist(remove_ingredient(Ingredient), Set, Set0),
     allergens(Set0, Allergens0),
-    append([Ingredient-Allergen], Allergens0, Allergens).
+    Allergens = [Ingredient-Allergen|Allergens0].
 
 remove_ingredient(Ingredient, Allergen-ListIn, Allergen-ListOut) :-
     delete(ListIn, Ingredient, ListOut).
