@@ -1,0 +1,12 @@
+name: Run Prolog tests
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install SWI-Prolog
+      run: sudo apt-get install swi-prolog -y
+    - name: Run Prolog tests
+      run: make prolog
