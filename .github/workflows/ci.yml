@@ -6,7 +6,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Install SWI-Prolog
-      run: sudo apt-get install swi-prolog -y
+    - name: Install SWI-Prolog backend
+      uses: logtalk-actions/setup-swi-prolog@master
+      with:
+        swi-prolog-branch: stable
+        swi-prolog-version: latest
+    - name: Install Logtalk
+      uses: logtalk-actions/setup-logtalk@master
+      with:
+        logtalk-version: git
     - name: Run Prolog tests
-      run: make prolog
+      run: make lgtunit

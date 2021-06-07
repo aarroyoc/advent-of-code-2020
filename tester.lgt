@@ -3,6 +3,5 @@
     logtalk_load(lgtunit(loader)),
     logtalk_load('test/day1', [hook(lgtunit)]),
     logtalk_load('test/day2', [hook(lgtunit)]),
-    day1::run,
-    day2::run
+    lgtunit::run_test_sets([day1, day2])
 )).
